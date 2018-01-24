@@ -1,0 +1,6 @@
+models\MySQL.class
+models\Persona.class
+models\JSONTrazaapp.class
+models\LoginToken.class
+models\SimpleToken.class
+models\ModeloTrazaapp.class

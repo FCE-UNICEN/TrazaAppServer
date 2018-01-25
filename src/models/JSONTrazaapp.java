@@ -80,11 +80,38 @@ public class JSONTrazaapp {
 
 	}
 	
-	@GET
-	@Path("/register")
+	@POST
+	@Path("/addpeticion")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public LoginToken getCulturales(){
+	public SimpleToken addPeticion(String request){
+		System.out.println(request);
+		new JSONObject();
+		JSONObject json;
+		try {
+			json = new JSONObject(request);
+			return ModeloTrazaapp.getInstanceTrazaapp().addPeticion(json.getInt("idResource"), json.getInt("idUser"), json.getInt("cantidad"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@GET
+	@Path("/getresources")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResourceToken getResources(){
+		System.out.println("--GET Resources--");
+		return ModeloTrazaapp.getInstanceTrazaapp().getResouces();
+	}
+	
+	
+	@GET
+	@Path("/hello")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getCulturales(){
 		System.out.println("hola");
-		return ModeloTrazaapp.getInstanceTrazaapp().attemptLogin("maga@maga.com", "magama");
+		return "funciona!";
 	}
 }

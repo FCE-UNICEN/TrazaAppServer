@@ -198,4 +198,20 @@ public ResourceToken getResouces(){
 
 		return result;
 	}
+	
+	public SimpleToken fillPeticion(int id_peticion, int id_paquete){
+		// id_resource cantidad
+		String query;
+		query = "UPDATE PETICION "
+				+ "SET id_paquete = "+id_paquete
+				+ " WHERE id_peticion = '"+id_peticion+"'";
+		
+		sql.executeQuery(query);
+		SimpleToken result = new SimpleToken();
+		result.setMensaje("peticion correspondida");
+		result.setStatus(200);
+		System.out.println("lalalaaal");
+		return result;
+		
+	}
 }

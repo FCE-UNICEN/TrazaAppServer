@@ -60,7 +60,7 @@ public class ModeloTrazaapp {
 			} else {
 				System.out.println("usuario no-valido");
 				LoginToken result = new LoginToken();
-				result.setMensaje("Usuario y contraseña no coinciden");
+				result.setMensaje("Usuario y contraseÃ±a no coinciden");
 				result.setStatus(401);
 				result.setUsuario(new Persona());
 				return result;
@@ -71,9 +71,9 @@ public class ModeloTrazaapp {
 			return null;
 		}
 	}
-	
-public ResourceToken getResouces(){
-		
+
+	public ResourceToken getResources(){
+
 		String query = "SELECT id,name FROM RESOURCES";
 		System.out.println(query);
 		ResultSet resultSet = sql.getResultset(query);
@@ -91,15 +91,15 @@ public ResourceToken getResouces(){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		ResourceToken rt = new ResourceToken();
 		rt.setMensaje("RECURSOS CARGADOS");
 		rt.setResources(recursos.toArray(new Resource[recursos.size()]));
 		//rt.setResources((Resource[]) recursos.toArray());
 		rt.setStatus(200);
-		
+
 		return rt;
-		
+
 	}
 
 	public boolean existeUsuario(String email) {
@@ -187,10 +187,10 @@ public ResourceToken getResouces(){
 
 	public SimpleToken addPeticion(int idResource, int idUser, int cantidad) {
 		String query;
-		
+
 		query = "INSERT INTO PETICION(id_resource,id_user,cantidad) " + "VALUES('" + idResource + "','"
 				+ idUser + "','" + cantidad + "')";
-		
+
 		sql.executeQuery(query);
 		SimpleToken result = new SimpleToken();
 		result.setMensaje("peticion creada exitosamente");
@@ -198,6 +198,43 @@ public ResourceToken getResouces(){
 
 		return result;
 	}
+
+
+	public PackageToken getOwnPackage(int p) {
+
+		String query = "SELECT e.id_envio, MAX(e.fecha) as fecha_reciente,rr.id_origen, rr.id_destino "
+				+ ", p.* from ENVIO e JOIN Resource_Route rr ON (e.id_envio = rr.id_envio) JOIN Package p"
+				+ " ON(e.id_package = p.id_package) WHERE rr.id_destino = '"+ p  +"' GROUP BY (e.id_package)";
+		System.out.println(query);
+		ResultSet resultSet = sql.getResultset(query);
+		ArrayList<Paquete> paquetes = new ArrayList<>();
+		try {
+			while(resultSet.next()){
+				Paquete paq = new Paquete();
+				System.out.println("--");
+				paq.setId(resultSet.getInt("id_package"));
+				paq.setCantidad(resultSet.getInt("cantidad"));
+				paq.setIdPadre(resultSet.getInt("id_package_padre"));
+				paq.setIdResource(resultSet.getInt("id_resource"));
+				paq.setEnUso(resultSet.getInt("enUso"));
+				paquetes.add(paq);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		PackageToken pt = new PackageToken();
+		pt.setMensaje("Paquetes obtenidos");
+		pt.setPackages(paquetes.toArray(new Paquete[paquetes.size()]));
+		//rt.setResources((Resource[]) recursos.toArray());
+		pt.setStatus(200);
+
+		return pt;
+
+	}
+}
+
 	
 	public SimpleToken fillPeticion(int id_peticion, int id_paquete){
 		// id_resource cantidad
@@ -215,3 +252,4 @@ public ResourceToken getResouces(){
 		
 	}
 }
+

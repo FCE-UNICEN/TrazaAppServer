@@ -15,8 +15,6 @@ import org.json.*;
 
 @Path("/trazaapp")
 public class JSONTrazaapp {
-
-
 	@POST
 	@Path("/attemptlogin")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -91,6 +89,25 @@ public class JSONTrazaapp {
 		try {
 			json = new JSONObject(request);
 			return ModeloTrazaapp.getInstanceTrazaapp().addPeticion(json.getInt("idResource"), json.getInt("idUser"), json.getInt("cantidad"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@POST
+	@Path("/fillpeticion")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public SimpleToken fillPeticion(String request){
+		System.out.println("holis");
+		System.out.println(request);
+		new JSONObject();
+		JSONObject json;
+		try {
+			json = new JSONObject(request);
+			return ModeloTrazaapp.getInstanceTrazaapp().fillPeticion(json.getInt("id_peticion"), json.getInt("id_paquete"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -3,15 +3,15 @@ package models;
 public class Persona {
 
     private int id; //identificador unico
-    private String pass;
-    private String user;
-    private String nombre;
-    private String telefono;
+    private String password;
+    private String username;
+    private String name;
+    private String phone;
     private int ciudad;
     private boolean admin;
     private String email;
     private String direccion;
-	private String Web;
+	private String web;
 	private double latitude;
 	private double longitude;
 
@@ -77,34 +77,34 @@ public class Persona {
 		this.id = id;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPassword(String pass) {
+		this.password = pass;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public String getName() {
+		return name;
 	}
 
 
-	public String getUser() {
-		return user;
+	public void setName(String nombre) {
+		this.name = nombre;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String telefono) {
+		this.phone = telefono;
+	}
+
+
+	public String getUsername() {
+		return username;
 	}
 
 	public int getCiudad() {
@@ -116,8 +116,8 @@ public class Persona {
 	}
 
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUsername(String user) {
+		this.username = user;
 	}
 
 	public boolean isAdmin() {
@@ -137,11 +137,11 @@ public class Persona {
 	}
 
 	public String getWeb() {
-		return Web;
+		return web;
 	}
 
 	public void setWeb(String web) {
-		Web = web;
+		this.web = web;
 	}
 }
 

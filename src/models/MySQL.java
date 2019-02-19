@@ -28,7 +28,7 @@ public class MySQL{
         this.mysqluser     = user;
         this.mysqlpass     = pass;
         this.mysqldateBase = db;
-        this.mysqlIP       = "192.168.1.36";
+        this.mysqlIP       = "172.29.29.0";
         this.mysqlPort     = "3306";
     }
 
@@ -79,7 +79,7 @@ public class MySQL{
                     this.mysqldateBase, this.mysqluser, this.mysqlpass);
 
             st = conn.createStatement();
-            st.executeUpdate("USE trazaapp2");
+            st.executeUpdate("USE "+mysqldateBase);
 
             System.out.println("MySql: Conexion con BD establecida. ");
         } catch (SQLException se) {
@@ -94,10 +94,12 @@ public class MySQL{
     public ResultSet getResultset(String s){
         try {
             crearConn();
-            return st.executeQuery(s);
+            ResultSet result = st.executeQuery(s);
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("MySql: Error en executeQuery-MySql");
+            
         }
         return null;
     }
@@ -114,6 +116,19 @@ public class MySQL{
             e.printStackTrace();
             return -1;
         }
+    }
+    
+    public ResultSet compoundQuery(String s1, String s2){
+        try {
+            crearConn();
+            int rs = st.executeUpdate(s1);
+            ResultSet result = st.executeQuery(s2);
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("MySql: Error en executeQuery-MySql");
+        }
+        return null;
     }
 
 
